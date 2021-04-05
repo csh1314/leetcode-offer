@@ -11,23 +11,23 @@
  */
  var levelOrder = function(root) {
     if(!root)
-        return [];
-    let queue = [root], res = [], isDouble = false;
+        return []
+    const queue = [root], res = []
+    let isOdd = true, size
+    // 每一层的节点数是知道的 size
     while(queue.length){
-        let temp =[];
-        for(let i = queue.length; i >0; i--){
-            let node = queue.shift();
-            temp.push(node.val);
+        size = queue.length
+        let temp = new Array(size)
+        while(size--){
+            let node = queue.shift()
+            temp[isOdd ? temp.length - size - 1: size] = node.val
             if(node.left)
-                queue.push(node.left);
+                queue.push(node.left)
             if(node.right)
                 queue.push(node.right)
         }
-        // 偶数行reverse即可
-        if(isDouble)
-            temp = temp.reverse();
-        res.push(temp);
-        isDouble = !isDouble;
+        res.push(temp)
+        isOdd = !isOdd
     }
-    return res;
+    return res
 };
